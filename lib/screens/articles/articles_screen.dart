@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:news/api/model/sources_response/Source.dart';
-import 'package:news/ui/Components/Article_Item.dart';
+import 'package:news/ui/Components/News_Item.dart';
+import 'package:news/ui/Components/News_List.dart';
 import 'package:news/ui/Components/tab_item.dart';
 
 class ArticlesScreen extends StatefulWidget {
   List<Source>? sources = [];
+  String query;
 
-  ArticlesScreen(this.sources);
+  ArticlesScreen(this.sources, this.query);
 
   @override
   State<ArticlesScreen> createState() => _ArticlesScreenState();
@@ -41,13 +43,7 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
               height: 15,
             ),
             Expanded(
-              child: ListView.separated(
-                  padding: EdgeInsets.all(8),
-                  itemBuilder: (context, index) => ArticleItem(),
-                  separatorBuilder: (context, index) => SizedBox(
-                        height: 20,
-                      ),
-                  itemCount: 5),
+              child: NewsList(widget.sources![SelectedIndex], widget.query),
             )
           ],
         ),

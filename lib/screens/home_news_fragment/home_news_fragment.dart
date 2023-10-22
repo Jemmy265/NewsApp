@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:news/api/api_manager.dart';
 import 'package:news/api/model/sources_response/SourcesResponse.dart';
+import 'package:news/models/Category.dart';
 import 'package:news/screens/articles/articles_screen.dart';
 
 class HomeNewsFragment extends StatelessWidget {
+  CategoryModel? category;
+  String query;
+
+  HomeNewsFragment(this.category, this.query);
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<SourcesResponse>(
-      future: ApiManager.getNewsSources(),
+      future: ApiManager.getSources(category!.categoryid),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Theme.of(context).primaryColor,
+            ),
           );
         }
         if (snapshot.hasError) {
@@ -35,7 +43,7 @@ class HomeNewsFragment extends StatelessWidget {
             ),
           );
         }
-        return ArticlesScreen(response?.sources);
+        return ArticlesScreen(response?.sources, query);
       },
     );
   }
