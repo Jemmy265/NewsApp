@@ -44,6 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontSize: 20,
                   ),
                   decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(40),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                        )),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(40),
                     ),
@@ -149,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ? SettingsScreen()
             : selectedCategory == null
                 ? categoriesScreen(selectCategory)
-                : HomeNewsFragment(selectedCategory, controller.text),
+                : HomeNewsFragment(selectedCategory!, controller.text),
       ),
     );
   }
